@@ -4,11 +4,14 @@
   "private": true,
   "dependencies": {
     "@tensorflow/tfjs": "^1.2.9",
+    "gh-pages": "^2.1.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1"
   },
+  "homepage": "https://demborg.github.io/cppn",
   "scripts": {
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
