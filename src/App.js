@@ -55,6 +55,7 @@ class CPPNCanvas extends React.Component {
       for (var c = 0; c < channels; c++) {
         imageData.data[channels * i + c] = Math.round(255 * res_array[i][c])
       }
+      imageData.data[channels * i + 3] = 255
     }
   
     ctx.putImageData(imageData, 0, 0);
