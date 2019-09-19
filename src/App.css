@@ -15,7 +15,37 @@ canvas {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-  border: 5px solid #000000
-}
+  border: 5px solid #161c36;
+  box-shadow: 2px 2px 2px black; }
 
 body {background-color: #97adc7}
+
+.card {
+  font-family: Roboto;
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: whitesmoke;
+  font-family: Roboto;
+  padding-top: 1%;
+  padding-left: 1%;
+  padding-bottom: 1%;
+  padding-right: 1%;
+  text-align: left;
+  color: #161c36;
+  box-shadow: 2px 2px 2px black
+}
+
+.name {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.year {
+  font-size: 10px;
+}
+
+.material {
+  font-size: 10px;
+  font-style: italic;
+}

@@ -7,6 +7,20 @@ const tflink = "https://www.tensorflow.org/js"
 const cppnlink = "https://en.wikipedia.org/wiki/Compositional_pattern-producing_network"
 const channels = 4
 
+class TitleCard extends React.Component {
+  render () {
+    const {artist, year, name, material} = this.props
+    return (
+      <div className="card">
+        <span className="artist">{artist}</span> <br/>
+        <span className="name">{name}</span> <span className="year">{year}</span> <br/>
+        <span className="material">{material}</span>
+
+      </div>
+    )
+  }
+}
+
 class CPPNCanvas extends React.Component {
   constructor(props) {
     super(props)
@@ -69,7 +83,10 @@ class CPPNCanvas extends React.Component {
         width={this.props.width} 
         height={this.props.height}
         />
+        <br/>
+        <TitleCard artist="Axel Demborg" year="2019" material="Digital render, programming, mixed languages" name="Art of a Machine"/>
       </div>
+      
     );
   }
 }
