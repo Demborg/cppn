@@ -30,14 +30,13 @@ class CPPNCanvas extends React.Component {
     }
   }
 
-  createModel(input_size) {
+  createModel(input_size, num_layers=2, units_per_layer=8) {
     console.time('createModel')
     const model = sequential();
-    model.add(layers.dense({inputShape: [input_size], units: 8, activation: 'tanh', kernelInitializer: initializers.randomNormal({stddev: 1})}));
-    model.add(layers.dense({units: 8, activation: 'tanh', kernelInitializer: initializers.randomNormal({stddev: 1})}));
-    model.add(layers.dense({units: 8, activation: 'tanh', kernelInitializer: initializers.randomNormal({stddev: 1})}));
-    model.add(layers.dense({units: 8, activation: 'tanh', kernelInitializer: initializers.randomNormal({stddev: 1})}));
-    model.add(layers.dense({units: 8, activation: 'tanh', kernelInitializer: initializers.randomNormal({stddev: 1})}));
+    model.add(layers.dense({inputShape: [input_size], units: units_per_layer, activation: 'tanh', kernelInitializer: initializers.randomNormal({stddev: 1})}));
+    for (var i = 0; i < num_layers -2; i++){
+      model.add(layers.dense({units: units_per_layer, activation: 'tanh', kernelInitializer: initializers.randomNormal({stddev: 1})}));
+    }
     model.add(layers.dense({units: channels, activation: 'sigmoid', kernelInitializer: initializers.randomNormal({stddev: 1})}));
     console.timeEnd('createModel')
     return model
@@ -121,7 +120,7 @@ function App() {
       <p>
         Playing with <a href={cppnlink}> CPPNs </a> and <a href={tflink}>tf.js</a> during hackathon
       </p>
-      <CPPNCanvas width={256} height={256} scale={8}/>
+      <CPPNCanvas width={256} height={256} scale={8} num_layers={6} units_per_layer={8}/>
     </div>
   )  
 }
