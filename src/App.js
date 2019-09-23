@@ -24,10 +24,14 @@ class TitleCard extends React.Component {
 class CPPNCanvas extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { model : null}
+    this.state = {
+      model : null,
+      latent: [-1, -1]
+    }
   }
 
   createModel(input_size) {
+    console.time('createModel')
     const model = sequential();
     model.add(layers.dense({inputShape: [input_size], units: 8, activation: 'tanh', kernelInitializer: initializers.randomNormal({stddev: 1})}));
     model.add(layers.dense({units: 8, activation: 'tanh', kernelInitializer: initializers.randomNormal({stddev: 1})}));
@@ -35,10 +39,12 @@ class CPPNCanvas extends React.Component {
     model.add(layers.dense({units: 8, activation: 'tanh', kernelInitializer: initializers.randomNormal({stddev: 1})}));
     model.add(layers.dense({units: 8, activation: 'tanh', kernelInitializer: initializers.randomNormal({stddev: 1})}));
     model.add(layers.dense({units: channels, activation: 'sigmoid', kernelInitializer: initializers.randomNormal({stddev: 1})}));
+    console.timeEnd('createModel')
     return model
   }
 
   createInput(width, height, latent, scale) {
+    console.time('createInput')
     var a = []
     for (var y = 0; y < height; y++) {
       const v = scale * ((2*y/height)-1)
@@ -47,24 +53,24 @@ class CPPNCanvas extends React.Component {
         a.push([u, v, Math.sqrt(u*u + v*v), ...latent.map(a => scale*a)])
       }
     }
+    console.timeEnd('createInput')
     return tensor2d(a)
   }
 
-  componentDidMount() {
-    const {num_layers, hidden, width, height, scale} = this.props
-
-    
-    console.log('creating model')
-    const model = this.createModel(2+3, num_layers, hidden)
-    this.setState({model: model})
+  updateCanvas() {
+    const {width, height, scale} = this.props
+    const {model, latent} = this.state
     const canvas = this.refs.canvas
     const ctx = canvas.getContext("2d")
     var imageData = ctx.createImageData(width, height)
-    const input = this.createInput(width, height, [1, -1], scale)
+    const input = this.createInput(width, height, latent, scale)
 
+    console.time('predict')
     const res = model.predict(input)
     const res_array = res.arraySync()
+    console.timeEnd('predict')
 
+    console.time('paint')
     for (var i = 0; i < res_array.length; i++) {
       for (var c = 0; c < channels; c++) {
         imageData.data[channels * i + c] = Math.round(255 * res_array[i][c])
@@ -73,6 +79,22 @@ class CPPNCanvas extends React.Component {
     }
   
     ctx.putImageData(imageData, 0, 0);
+    console.timeEnd('paint')
+  }
+
+  componentDidMount() {
+    const {num_layers, hidden} = this.props
+    const model = this.createModel(2+3, num_layers, hidden)
+    this.setState({model: model}, this.updateCanvas)
+  }
+
+  handleClick = (e) => {
+    const targetRect = e.currentTarget.getBoundingClientRect()
+    const x = 2 * (e.nativeEvent.offsetX / targetRect.width) - 1
+    const y = 2 * (e.nativeEvent.offsetY / targetRect.height) - 1
+    this.setState({latent: [x, y]}, this.updateCanvas)
+    console.log(`latent = [${x};${y}]`)
+    this.updateCanvas()
   }
 
   render() {
@@ -82,6 +104,7 @@ class CPPNCanvas extends React.Component {
         ref="canvas"
         width={this.props.width} 
         height={this.props.height}
+        onClick={this.handleClick}
         />
         <br/>
         <TitleCard artist="Axel Demborg" year="2019" material="Digital render, programming, mixed languages" name="Art of a Machine"/>
