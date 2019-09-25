@@ -102,7 +102,7 @@ class CPPNCanvas extends React.Component {
         ref="canvas"
         width={this.props.width} 
         height={this.props.height}
-        onClick={this.handleClick}
+        onMouseMove={this.handleClick}
         />
         <br/>
         <TitleCard artist="Axel Demborg" year="2019" material="Digital render, programming, mixed languages" name="Art of a Machine"/>
