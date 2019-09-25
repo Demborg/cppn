@@ -65,7 +65,7 @@ class CPPNCanvas extends React.Component {
     const input = this.createInput(width, height, latent, scale)
 
     console.time('predict')
-    const res = model.predict(input)
+    const res = model.predict(input, {batchSize: 2048})
     const res_array = res.arraySync()
     console.timeEnd('predict')
 
@@ -93,7 +93,6 @@ class CPPNCanvas extends React.Component {
     const y = 2 * (e.nativeEvent.offsetY / targetRect.height) - 1
     this.setState({latent: [x, y]}, this.updateCanvas)
     console.log(`latent = [${x};${y}]`)
-    this.updateCanvas()
   }
 
   render() {
