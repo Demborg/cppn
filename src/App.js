@@ -81,10 +81,18 @@ class CPPNCanvas extends React.Component {
     console.timeEnd('paint')
   }
 
+  handleOrientaion = (e) => {
+    const x = e.beta
+    const y = e.gamma
+    this.setState({latent: [x, y]}, this.updateCanvas)
+    console.log(`latent = [${x};${y}]`)
+  }
+
   componentDidMount() {
     const {num_layers, hidden} = this.props
     const model = this.createModel(2+3, num_layers, hidden)
     this.setState({model: model}, this.updateCanvas)
+    window.addEventListener("deviceorientation", this.handleOrientaion, true)
   }
 
   handleClick = (e) => {
