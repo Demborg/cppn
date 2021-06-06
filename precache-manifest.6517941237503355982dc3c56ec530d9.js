@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ebcfbcde4f7931dc51b2a6285387bd3d",
+    "revision": "9f9bfc903a21860fb03b9f51b0314abc",
     "url": "/cppn/index.html"
   },
   {
-    "revision": "6f1eb395f9f2c3927fcb",
-    "url": "/cppn/static/css/main.09656181.chunk.css"
+    "revision": "4ed513cfe51d81f87f68",
+    "url": "/cppn/static/css/main.2bc2bdb0.chunk.css"
   },
   {
     "revision": "4c6fa63d847d5b369547",
     "url": "/cppn/static/js/2.56c62a12.chunk.js"
   },
   {
-    "revision": "6f1eb395f9f2c3927fcb",
-    "url": "/cppn/static/js/main.ef4363e9.chunk.js"
+    "revision": "4ed513cfe51d81f87f68",
+    "url": "/cppn/static/js/main.d433b18a.chunk.js"
   },
   {
     "revision": "a91d9d63705ae53ff685",
@@ -24,7 +24,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/cppn/static/media/AlfaSlabOne-Regular.7676beb2.ttf"
   },
   {
-    "revision": "11eabca2251325cfc5589c9c6fb57b46",
-    "url": "/cppn/static/media/Roboto-Regular.11eabca2.ttf"
+    "revision": "f36638c2135b71e5a623dca52b611173",
+    "url": "/cppn/static/media/Roboto-Regular.f36638c2.ttf"
   }
 ]);
