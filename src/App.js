@@ -82,8 +82,8 @@ class CPPNCanvas extends React.Component {
   }
 
   handleOrientaion = (e) => {
-    const x = e.beta
-    const y = e.gamma
+    const x = e.beta / 90
+    const y = e.gamma / 90
     this.setState({latent: [x, y]}, this.updateCanvas)
     console.log(`latent = [${x};${y}]`)
   }
