@@ -105,29 +105,30 @@ class CPPNCanvas extends React.Component {
 
   render() {
     return (
-      <div>
-        <canvas 
-        ref="canvas"
-        width={this.props.width} 
-        height={this.props.height}
-        onMouseMove={this.handleClick}
-        />
-        <br/>
-        <TitleCard artist="Axel Demborg" year="2019" material="Digital render, programming, mixed languages" name="Art of a Machine"/>
-      </div>
-      
+      <canvas 
+      ref="canvas"
+      width={this.props.width} 
+      height={this.props.height}
+      onMouseMove={this.handleClick}
+      className={this.props.className}
+      />
     );
   }
 }
 
 function App() {
+  const params = new URLSearchParams(window.location.search)
+  if (params.get("fullscreen")) {
+    return <CPPNCanvas width={256} height={256} scale={8} num_layers={6} units_per_layer={8} className='fullscreen'/>
+  }
   return (
     <div>
       <h1>CPPN.js</h1>
       <p>
         Playing with <a href={cppnlink}> CPPNs </a> and <a href={tflink}>tf.js</a> during hackathon
       </p>
-      <CPPNCanvas width={256} height={256} scale={8} num_layers={6} units_per_layer={8}/>
+      <CPPNCanvas width={256} height={256} scale={8} num_layers={6} units_per_layer={8} className='display'/>
+      <TitleCard artist="Axel Demborg" year="2019" material="Digital render, programming, mixed languages" name="Art of a Machine"/>
     </div>
   )  
 }
