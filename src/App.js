@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import '@tensorflow/tfjs'
-import { sequential, layers, tensor2d, initializers} from '@tensorflow/tfjs';
+import { sequential, layers, tensor2d, initializers } from '@tensorflow/tfjs';
 
 const tflink = "https://www.tensorflow.org/js"
 const cppnlink = "https://en.wikipedia.org/wiki/Compositional_pattern-producing_network"
@@ -32,6 +32,12 @@ class CPPNCanvas extends React.Component {
 
   createModel(input_size, num_layers=2, units_per_layer=8) {
     console.time('createModel')
+    let seed = window.location.pathname.slice(1)
+    if (seed === "") {
+      const seed = crypto.randomUUID()
+      window.location.pathname = seed
+    }
+    Math.seedrandom(seed)
     const model = sequential();
     model.add(layers.dense({inputShape: [input_size], units: units_per_layer, activation: 'tanh', kernelInitializer: initializers.randomNormal({stddev: 1})}));
     for (var i = 0; i < num_layers -2; i++){
