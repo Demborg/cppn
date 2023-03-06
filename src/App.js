@@ -24,9 +24,19 @@ class TitleCard extends React.Component {
 class CPPNCanvas extends React.Component {
   constructor(props) {
     super(props)
+
+    const hash = window.location.hash
+    let x = -1
+    let y = -1
+    if (hash) {
+      console.log(hash)
+      const latent = JSON.parse(window.location.hash.slice(1))
+      x = latent[0]
+      y = latent[1]
+    }
     this.state = {
       model : null,
-      latent: [-1, -1]
+      latent: [x, y]
     }
   }
 
@@ -69,6 +79,8 @@ class CPPNCanvas extends React.Component {
     const ctx = canvas.getContext("2d")
     var imageData = ctx.createImageData(width, height)
     const input = this.createInput(width, height, latent, scale)
+
+    window.location.hash = JSON.stringify(latent)
 
     console.time('predict')
     const res = model.predict(input, {batchSize: 2048})
