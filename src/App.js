@@ -42,10 +42,10 @@ class CPPNCanvas extends React.Component {
 
   createModel(input_size, num_layers=2, units_per_layer=8) {
     console.time('createModel')
-    let seed = window.location.pathname.slice(1)
+    let seed = window.location.search.slice(1)
     if (seed === "") {
       const seed = crypto.randomUUID()
-      window.location.pathname = seed
+      window.location.search = seed
     }
     Math.seedrandom(seed)
     const model = sequential();
